@@ -164,7 +164,7 @@ class bri
 		if (empty($newtoken)) {
 			$error = [
             		'status' => 'false',
-            		'message' => 'Login failed'
+            		'message' => 'login failed'
             	];
 
 			return json_encode($error);
@@ -172,20 +172,20 @@ class bri
 			$form = $html->find('form',0);
 			$arrPostData = [
 	        	'csrf_token_newib' => $newtoken,
-	        	'FROM_DATE' => date('Y-m-d'),
+	        	'FROM_DATE' => $this->tgl,
 	        	'TO_DATE' => date('Y-m-d'),
 	        	'download' => '',
 	        	'data-lenght' => '5',
 	        	'ACCOUNT_NO' => $this->rekening,
 	        	'VIEW_TYPE' => 2,
-	        	'DDAY1' => DateTime::createFromFormat('Y-m-d',$this->tgl)->format('d'),
-	        	'DMON1' => DateTime::createFromFormat('Y-m-d',$this->tgl)->format('m'),
-	        	'DYEAR1' => DateTime::createFromFormat('Y-m-d',$this->tgl)->format('Y'),
-	        	'DDAY2' => DateTime::createFromFormat('Y-m-d',$this->tgl)->format('d'),     
-	        	'DMON2' => DateTime::createFromFormat('Y-m-d',$this->tgl)->format('m'),
-	        	'DYEAR2' => DateTime::createFromFormat('Y-m-d',$this->tgl)->format('Y'),
-	        	'MONTH' => DateTime::createFromFormat('Y-m-d',$this->tgl)->format('m'),
-	        	'YEAR' => DateTime::createFromFormat('Y-m-d',$this->tgl)->format('Y'),
+	        	'DDAY1' => DateTime::createFromFormat('Y-m-d',date('Y-m-d'))->format('d'),
+	        	'DMON1' => DateTime::createFromFormat('Y-m-d',date('Y-m-d'))->format('m'),
+	        	'DYEAR1' => DateTime::createFromFormat('Y-m-d',date('Y-m-d'))->format('Y'),
+	        	'DDAY2' => DateTime::createFromFormat('Y-m-d',date('Y-m-d'))->format('d'),     
+	        	'DMON2' => DateTime::createFromFormat('Y-m-d',date('Y-m-d'))->format('m'),
+	        	'DYEAR2' => DateTime::createFromFormat('Y-m-d',date('Y-m-d'))->format('Y'),
+	        	'MONTH' => DateTime::createFromFormat('Y-m-d',date('Y-m-d'))->format('m'),
+	        	'YEAR' => DateTime::createFromFormat('Y-m-d',date('Y-m-d'))->format('Y'),
 	        	'submitButton' => 'Tampilkan'
 	    	];
 
@@ -210,7 +210,7 @@ class bri
             if(empty($table)){
             	$error = [
             		'status' => 'false',
-            		'message' => 'no data'
+            		'message' => '"no data"'
             	];
 
                 return json_encode($error);
