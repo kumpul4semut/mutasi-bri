@@ -19,7 +19,7 @@ class bri
 			$this->username = $_GET['username'];
 			$this->password = $_GET['password'];
 			$this->rekening = $_GET['rekening'];
-			$this->tgl = $_GET['tgl'];
+			$this->tgl = date('Y-m-d', time());
 		}
 		unlink('cookie.txt');
 		unlink('hasil.txt');
@@ -288,7 +288,8 @@ $mutasi = $bri->prepareMutasi();
 file_put_contents("hasil_mutasi.json",$mutasi);
 $bri->logout();
 $json = file_get_contents("hasil_mutasi.json");
-
+// echo $json;
+$time_start = microtime(true);
 while (json_decode($json, true)['status'] == 'false') {
 	$csrf = $bri->prepare();
 	$cap = $bri->getCap();
@@ -299,7 +300,24 @@ while (json_decode($json, true)['status'] == 'false') {
 	$json = file_get_contents("hasil_mutasi.json");
 	if (json_decode($json, true)['status'] !== 'false') {
 		echo file_get_contents("hasil_mutasi.json");
+		exit;
 	}
+
+	$time_end = microtime(true);
+	$time = $time_end - $time_start;
+	$time = explode('.', $time)[0];
+
+	if ($time > 10) {
+		$data = [
+			'status' => true,
+			'message'=> "limit $time seconds"
+		];
+		echo json_encode($data);
+		exit;
+	}
+
 }
+
+echo file_get_contents("hasil_mutasi.json");
 
 ?>
